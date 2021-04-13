@@ -218,6 +218,13 @@ module.exports = class MediaQueryPlugin {
                 cb();
             };
 
+            // when running Webpack in watch mode,
+            //    - all split assets get a new timestamp and
+            //    - on WinOS, splited CSS gets appended, not replaced
+            //
+            // This is fixed with a media-reset:
+            store.resetMedia();
+
             // Since webpack 4 doesn't have the processAssets hook, we need the following condition.
             // In future (once webpack 4 support has been dropped) this can be simplified again.
             if (hasDeprecatedChunks) {
